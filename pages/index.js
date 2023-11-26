@@ -11,6 +11,7 @@ const Home = () => {
   const [user, setUser] = useState(null);
   const [email, setEmail] = useState(null);
   const [newPost, setNewPost] = useState("");
+  const [loading, setLoading] = useState(false);
 
   console.log(posts);
 
@@ -25,11 +26,13 @@ const Home = () => {
 
       const fetchTweets = async () => {
         try {
+          setLoading(true);
           const response = await fetch("http://localhost:3000/api/tweet");
 
           if (response.ok) {
             const data = await response.json();
             setPosts(data.data.tweets);
+            setLoading(false);
           } else {
             console.error("Failed to fetch tweets");
           }
@@ -97,14 +100,29 @@ const Home = () => {
             overflow: "auto",
           }}
         >
-          {posts.map((post, index) => (
-            <Post
-              key={index}
-              text={post.tweet}
-              username={user}
-              timestamp={post.timeStamp}
-            />
-          ))}
+          {loading ? (
+            <Typography
+              style={{
+                width: "100%",
+                textAlign: "center",
+                color: "#fff",
+                fontSize: "20px",
+                marginTop: "20px",
+                fontWeight: "bold",
+              }}
+            >
+              Loading...
+            </Typography>
+          ) : (
+            posts.map((post, index) => (
+              <Post
+                key={index}
+                text={post.tweet}
+                username={user}
+                timestamp={post.timeStamp}
+              />
+            ))
+          )}
         </Box>
         <Box
           sx={{
