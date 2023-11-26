@@ -5,9 +5,13 @@ const TopAppBar = () => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
-        position="static"
+        position="fixed"
+        color="primary"
         sx={{
           backgroundColor: "black",
+
+          bottom: "auto",
+          top: 0,
         }}
       >
         <Toolbar>

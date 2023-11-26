@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Box, TextField, Button, Typography, IconButton } from "@mui/material";
+import {
+  Box,
+  TextField,
+  Button,
+  Typography,
+  IconButton,
+  AppBar,
+  Toolbar,
+} from "@mui/material";
 import Post from "@/components/Post";
 import TopAppBar from "@/components/TopAppBar";
 import { useRouter } from "next/router";
@@ -90,15 +98,15 @@ const Home = () => {
           padding: "20px",
           maxWidth: "600px",
           margin: "auto",
+          height: "100vh",
         }}
       >
         <Box
           sx={{
             width: "100%",
-            height: {
-              xs: "calc(70vh - 100px)",
-              sm: "calc(90vh - 100px)",
-            },
+            marginBottom: "20px",
+            marginTop: "2rem",
+            padding: "4rem 0",
             overflow: "auto",
           }}
         >
@@ -120,72 +128,88 @@ const Home = () => {
               <Post
                 key={index}
                 text={post.tweet}
-                username={user}
+                username={post.name}
                 timestamp={post.timeStamp}
               />
             ))
           )}
         </Box>
-        <Box
+
+        <AppBar
+          position="fixed"
+          color="primary"
           sx={{
-            position: "absolute",
+            backgroundColor: "black",
+            width: "100%",
+            top: "auto",
             bottom: 0,
-            width: {
-              xs: "90%",
-              sm: "50%",
-            },
           }}
         >
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              width: "100%",
-              height: "100px",
-            }}
-          >
-            <div style={{ width: "90%" }}>
-              <TextField
-                fullWidth
-                placeholder="What's happening?"
-                variant="outlined"
-                multiline
-                rows={1}
-                value={newPost}
-                onChange={(e) => setNewPost(e.target.value)}
-                sx={{
-                  marginBottom: "10px",
-                  color: "white", // Set text color to white
-                  background: "#333", // Set background color to dark greyish
-                  "& .MuiOutlinedInput-notchedOutline": {
-                    borderColor: "#555", // Set border color to a slightly lighter grey
-                  },
-                  "&:hover .MuiOutlinedInput-notchedOutline": {
-                    borderColor: "#555", // Set border color on hover
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    color: "white", // Set text color on the input element
-                    placeholder: "white", // Set placeholder color to white
-                  },
-                }}
-              />
-            </div>
-            <div
-              style={{
-                width: "10%",
-                display: "grid",
-                placeItems: "center",
+          <Toolbar>
+            <Box
+              sx={{
+                display: {
+                  xs: "none",
+                  sm: "block",
+                },
               }}
             >
-              <IconButton variant="contained" onClick={addPost}>
-                <MdSend color="#fff" size={40} />
-              </IconButton>
-            </div>
-          </Box>
-        </Box>
+              <img
+                src="/images/main.jpg"
+                alt="pain hub logo"
+                style={{
+                  height: "50px",
+                }}
+              />
+            </Box>
+
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                width: "100%",
+              }}
+            >
+              <div style={{ width: "90%", padding: "10px" }}>
+                <TextField
+                  fullWidth
+                  placeholder="What's happening?"
+                  variant="outlined"
+                  value={newPost}
+                  onChange={(e) => setNewPost(e.target.value)}
+                  sx={{
+                    color: "white", // Set text color to white
+                    background: "#333", // Set background color to dark greyish
+                    "& .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "#555", // Set border color to a slightly lighter grey
+                    },
+                    "&:hover .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "#555", // Set border color on hover
+                    },
+                  }}
+                  InputProps={{
+                    style: {
+                      color: "white", // Set text color on the input element
+                      placeholder: "white", // Set placeholder color to white
+                    },
+                  }}
+                />
+              </div>
+              <div
+                style={{
+                  width: "10%",
+                  display: "grid",
+                  placeItems: "center",
+                }}
+              >
+                <IconButton variant="contained" onClick={addPost}>
+                  <MdSend color="#fff" size={30} />
+                </IconButton>
+              </div>
+            </Box>
+          </Toolbar>
+        </AppBar>
       </Box>
     </>
   );
