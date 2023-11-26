@@ -3,6 +3,12 @@ import { Paper, Typography, Box, Avatar, IconButton } from "@mui/material";
 
 import { MdClose, MdComment, MdFavorite, MdShare } from "react-icons/md";
 const Post = ({ text, username, timestamp }) => {
+  const formattedTime = new Date(timestamp).toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+  console.log(formattedTime);
+
   return (
     <Paper
       elevation={3}
@@ -25,7 +31,7 @@ const Post = ({ text, username, timestamp }) => {
         </Typography>
         <box sx={{ flexGrow: 1 }} />
         <Typography variant="caption" sx={{ color: "#bdbdbd" }}>
-          {timestamp}
+          {formattedTime}
         </Typography>
       </Box>
       <Typography sx={{ mb: 2 }}>{text}</Typography>

@@ -9,7 +9,10 @@ const Home = () => {
   const router = useRouter();
   const [posts, setPosts] = useState([]);
   const [user, setUser] = useState(null);
+  const [email, setEmail] = useState(null);
   const [newPost, setNewPost] = useState("");
+
+  console.log(posts);
 
   useEffect(() => {
     const storedEmail = localStorage.getItem("email");
@@ -18,22 +21,56 @@ const Home = () => {
     } else {
       const usersss = JSON.parse(storedEmail);
       setUser(usersss.email.name);
+      setEmail(usersss.email.email);
+
+      const fetchTweets = async () => {
+        try {
+          const response = await fetch("http://localhost:3000/api/tweet");
+
+          if (response.ok) {
+            const data = await response.json();
+            setPosts(data.data.tweets);
+          } else {
+            console.error("Failed to fetch tweets");
+          }
+        } catch (error) {
+          console.error("Error fetching tweets:", error);
+        }
+      };
+
+      fetchTweets();
     }
   }, []);
 
-  const addPost = () => {
+  const addPost = async () => {
     if (newPost.trim() !== "") {
-      const username = user;
-      const timestamp = new Date().toLocaleTimeString();
-
       const newPostObject = {
-        text: newPost,
-        username,
-        timestamp,
+        tweet: newPost,
+        name: user,
+        email: email, // Assuming user.email is available
       };
 
-      setPosts([...posts, newPostObject]);
-      setNewPost("");
+      // Make a POST request to your server to create a new tweet
+      try {
+        const response = await fetch("https://shylesh.onrender.com/api/tweet", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newPostObject),
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setPosts([...posts, data.data.tweet]);
+          setNewPost("");
+        } else {
+          // Handle error
+          console.error("Failed to create tweet");
+        }
+      } catch (error) {
+        console.error("Error creating tweet:", error);
+      }
     }
   };
 
@@ -61,7 +98,12 @@ const Home = () => {
           }}
         >
           {posts.map((post, index) => (
-            <Post key={index} {...post} />
+            <Post
+              key={index}
+              text={post.tweet}
+              username={user}
+              timestamp={post.timeStamp}
+            />
           ))}
         </Box>
         <Box
