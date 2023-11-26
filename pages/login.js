@@ -74,10 +74,10 @@ const Login = () => {
             backgroundPosition: "center",
             width: "100%",
             height: "100px",
+            mixBlendMode: "lighten",
           }}
         ></Box>
 
-        <Typography style={{ color: "#fff" }}>Welcome to The Bois</Typography>
         <TextField
           type="email"
           placeholder="username"
@@ -86,7 +86,8 @@ const Login = () => {
           fullWidth
           onChange={(e) => setEmail(e.target.value)}
           sx={{
-            marginBottom: "10px",
+            marginTop: "2rem",
+            marginBottom: "2rem",
             color: "white",
             background: "#333",
             "& .MuiOutlinedInput-notchedOutline": {
