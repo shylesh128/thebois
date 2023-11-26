@@ -64,11 +64,14 @@ const Home = () => {
             <Post key={index} {...post} />
           ))}
         </Box>
-        <div
-          style={{
+        <Box
+          sx={{
             position: "absolute",
             bottom: 0,
-            width: "50%",
+            width: {
+              xs: "90%",
+              sm: "50%",
+            },
           }}
         >
           <Box
@@ -120,7 +123,7 @@ const Home = () => {
               </IconButton>
             </div>
           </Box>
-        </div>
+        </Box>
       </Box>
     </>
   );

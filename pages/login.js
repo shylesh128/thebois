@@ -24,12 +24,6 @@ const Login = () => {
     backgroundColor: "#1b1b1b",
   };
 
-  const textFieldStyle = {
-    width: "100%",
-    marginBottom: "20px",
-    color: "#fff",
-  };
-
   const errorStyle = {
     color: "#ffa31a",
     margin: "10px 0",
@@ -72,7 +66,6 @@ const Login = () => {
           },
         }}
       >
-        {/* ceate a img tag and add the logo.png file to the public folder and set the src to logo.png */}
         <Box
           sx={{
             backgroundImage: `url("/images/main.jpg")`,
@@ -87,11 +80,28 @@ const Login = () => {
         <Typography style={{ color: "#fff" }}>Welcome to The Bois</Typography>
         <TextField
           type="email"
-          label="username"
+          placeholder="username"
           variant="outlined"
           value={email}
+          fullWidth
           onChange={(e) => setEmail(e.target.value)}
-          sx={textFieldStyle}
+          sx={{
+            marginBottom: "10px",
+            color: "white",
+            background: "#333",
+            "& .MuiOutlinedInput-notchedOutline": {
+              borderColor: "#555",
+            },
+            "&:hover .MuiOutlinedInput-notchedOutline": {
+              borderColor: "#555",
+            },
+          }}
+          InputProps={{
+            style: {
+              color: "white",
+              placeholder: "white",
+            },
+          }}
         />
 
         {error && <p style={errorStyle}>{error}</p>}
