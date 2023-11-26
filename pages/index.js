@@ -27,7 +27,9 @@ const Home = () => {
       const fetchTweets = async () => {
         try {
           setLoading(true);
-          const response = await fetch("http://localhost:3000/api/tweet");
+          const response = await fetch(
+            "https://shylesh.onrender.com/api/tweet"
+          );
 
           if (response.ok) {
             const data = await response.json();
