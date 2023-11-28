@@ -106,7 +106,7 @@ const Home = () => {
             width: "100%",
             marginBottom: "20px",
             marginTop: "2rem",
-            padding: "4rem 0",
+            padding: "2rem 0",
             overflow: "auto",
           }}
         >
